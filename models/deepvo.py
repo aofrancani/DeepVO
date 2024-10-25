@@ -21,7 +21,7 @@ class CNN(nn.Module):
     def __init__(
         self,
         input_channels: int = 6,
-        input_res: Tuple[int, int] = (1280, 384),
+        input_res: Tuple[int, int] = (384, 1280),
         conv_dropout=0.1,
     ) -> None:
         super(CNN, self).__init__()
@@ -165,7 +165,7 @@ def count_parameters(model: nn.Module) -> int:
 if __name__ == "__main__":
     batch_size = 8
     input_channels = 6
-    input_res = (1280, 384)
+    input_res = (384, 1280)
 
     # Build the model
     model = DeepVO(
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     # Dummy input
     x = torch.randn(
         batch_size, input_channels, input_res[0], input_res[1]
-    )  # (B x C x W x H)
+    )  # (B x C x H x W)
 
     # Initialize hidden state for the LSTM
     hidden_state = model.init_hidden(batch_size=batch_size)
