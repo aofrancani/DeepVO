@@ -108,6 +108,7 @@ def main(config_fpath, checkpoint_name):
 
     # Predict for each test sequence
     for sequence in config["data"]["test_sequences"]:
+        print(f"Sequence: {sequence}")
 
         # Build dataloader
         dataloader = build_dataloader(

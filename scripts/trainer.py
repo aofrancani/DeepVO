@@ -61,7 +61,9 @@ class Trainer:
                 tepoch.set_postfix(loss=loss.item())
 
                 # Log TensorBoard
-                self.tensorboard_writer.add_scalar("loss/train", loss.item(), iter)
+                self.tensorboard_writer.add_scalar(
+                    "loss/training_loss", loss.item(), iter
+                )
                 iter += 1
 
         return epoch_loss / len(train_loader)
@@ -145,7 +147,7 @@ class Trainer:
             save_best = False
 
             # Log training loss in TensorBoard
-            self.tensorboard_writer.add_scalar("train_loss", train_loss, epoch)
+            self.tensorboard_writer.add_scalar("loss/train", train_loss, epoch)
 
             # Learning rate scheduling
             if self.scheduler:

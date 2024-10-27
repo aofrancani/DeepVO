@@ -30,11 +30,11 @@ def extract_losses_from_tensorboard(log_dir: str):
     event_acc.Reload()
 
     # Extract train and val losses
-    train_loss = [scalar.value for scalar in event_acc.Scalars("train_loss")]
-    val_loss = [scalar.value for scalar in event_acc.Scalars("val_loss")]
+    train_loss = [scalar.value for scalar in event_acc.Scalars("loss/train")]
+    val_loss = [scalar.value for scalar in event_acc.Scalars("loss/val")]
 
     # Get epochs
-    epochs = [scalar.step for scalar in event_acc.Scalars("train_loss")]
+    epochs = [epoch + 1 for epoch in range(len(train_loss))]
 
     return epochs, train_loss, val_loss
 
