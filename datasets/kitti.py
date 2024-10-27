@@ -21,7 +21,7 @@ class KITTI(torch.utils.data.Dataset):
         sequences (List[str]): list of sequence IDs to be loaded
         window_size (int): sliding window size for frames
         overlap (int): overlap size between consecutive windows
-        read_poses (bool): flag to load ground truth poses (default=True)
+        normalize_gt (bool): flag to normalize the ground truth poses (default=False)
         transforms (callable): transformation to be applied on frames
     """
 
@@ -32,14 +32,14 @@ class KITTI(torch.utils.data.Dataset):
         sequences: List[str] = ["00", "02", "08", "09"],
         window_size: int = 3,
         overlap: int = 1,
-        read_poses: bool = True,
+        normalize_gt: bool = False,
         transforms: transforms.Compose = None,
     ):
         self.data_dpath = Path(data_dpath)
         self.camera_id = str(camera_id)
         self.window_size = window_size
         self.overlap = overlap
-        self.read_poses = read_poses
+        self.normalize_gt = normalize_gt
         self.transforms = transforms
         self.sequences = sequences
 
@@ -82,7 +82,7 @@ class KITTI(torch.utils.data.Dataset):
         imgs = torch.cat(imgs, dim=0)  # (2*C, H, W)
 
         # Process the ground truth poses for the current window
-        gt_poses = self._compute_relative_poses(gt_poses)
+        gt_poses = self._compute_relative_poses(gt_poses, self.normalize_gt)
 
         return imgs, gt_poses
 
@@ -205,7 +205,7 @@ class KITTI(torch.utils.data.Dataset):
 
         return windowed_dict
 
-    def _compute_relative_poses(self, poses: list) -> np.ndarray:
+    def _compute_relative_poses(self, poses: list, normalize_gt: bool) -> np.ndarray:
         """
         Compute relative poses between consecutive frames in a window.
 
@@ -234,7 +234,8 @@ class KITTI(torch.utils.data.Dataset):
             angles = rot.as_euler("xyz")
 
             # Pose normalization
-            # angles, t = self._normalize_pose(angles, t)
+            if normalize_gt:
+                angles, t = self._normalize_pose(angles, t)
 
             # Concatenate rotation and translation
             y.append(np.concatenate([angles, t]))

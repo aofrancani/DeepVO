@@ -33,6 +33,7 @@ def build_dataloader(
     overlap = data_params["overlap"]
     batch_size = data_params["bsize"]
     num_workers = data_params["num_workers"]
+    normalize_gt = data_params.get("normalize_gt", False)
 
     # Get transforms based on the dataset
     transforms = get_transforms(dataset_name, image_size)
@@ -52,6 +53,7 @@ def build_dataloader(
             window_size=window_size,
             overlap=overlap,
             transforms=transforms,
+            normalize_gt=normalize_gt,
         )
 
     else:
