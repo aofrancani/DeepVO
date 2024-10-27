@@ -4,7 +4,7 @@
         "dataset": "kitti",
         "training_sequences": ["00", "02", "08", "09"],
         "test_sequences": ["01", "03", "04", "05", "06", "07", "10"],
-        "image_size": [384, 1280],
+        "image_size": [192, 640],
         "bsize": 4,
         "val_split": 0.1,
         "window_size": 2,
@@ -15,24 +15,25 @@
     "model": {
         "hidden_size": 1000,
         "lstm_layers": 2,
-        "lstm_dropout": 0.2
+        "lstm_dropout": 0.2,
+        "conv_dropout": 0.1
     },
 
     "optimizer": {
-        "method": "SGD",
-        "lr": 1e-3,
+        "method": "Adagrad",
+        "lr": 5e-4,
         "momentum": 0.9,
         "weight_decay": 1e-4
     },
 
     "scheduler": {
-        "method": "CosineAnnealingLR"
+        "method": null
     },
     
     "training": {
-        "epoch": 50,
+        "epoch": 200,
         "loss": "w_mse",
-        "alpha": 1.0
+        "alpha": 100
     },
 
     "checkpoint": {

@@ -21,10 +21,12 @@ def build_model(
     # Build model
     model = DeepVO(
         input_channels=model_params["input_channels"],
+        input_res=model_params["image_size"],
         hidden_size=model_params["hidden_size"],
         lstm_layers=model_params["lstm_layers"],
         output_size=model_params["output_size"],
         lstm_dropout=model_params["lstm_dropout"],
+        conv_dropout=model_params["conv_dropout"],
     )
 
     # Send model to device

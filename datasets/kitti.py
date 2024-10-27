@@ -234,7 +234,7 @@ class KITTI(torch.utils.data.Dataset):
             angles = rot.as_euler("xyz")
 
             # Pose normalization
-            angles, t = self._normalize_pose(angles, t)
+            # angles, t = self._normalize_pose(angles, t)
 
             # Concatenate rotation and translation
             y.append(np.concatenate([angles, t]))

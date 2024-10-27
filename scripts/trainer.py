@@ -61,7 +61,7 @@ class Trainer:
                 tepoch.set_postfix(loss=loss.item())
 
                 # Log TensorBoard
-                self.tensorboard_writer.add_scalar("training_loss", loss.item(), iter)
+                self.tensorboard_writer.add_scalar("loss/train", loss.item(), iter)
                 iter += 1
 
         return epoch_loss / len(train_loader)
@@ -123,7 +123,7 @@ class Trainer:
                 save_best = True
 
             # Log validation loss in TensorBoard
-            self.tensorboard_writer.add_scalar("val_loss", val_loss, epoch)
+            self.tensorboard_writer.add_scalar("loss/val", val_loss, epoch)
 
             checkpoint_dict = {
                 "epoch": epoch,

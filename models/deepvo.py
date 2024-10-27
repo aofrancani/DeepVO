@@ -77,10 +77,12 @@ class DeepVO(nn.Module):
     def __init__(
         self,
         input_channels: int = 6,
+        input_res: list = [192, 640],
         hidden_size: int = 1000,
         lstm_layers: int = 2,
         output_size: int = 6,
         lstm_dropout: float = 0.2,
+        conv_dropout: float = 0.1,
     ) -> None:
         """
         Args:
@@ -92,7 +94,11 @@ class DeepVO(nn.Module):
         """
         super(DeepVO, self).__init__()
 
-        self.feature_extractor = CNN(input_channels=input_channels)
+        self.feature_extractor = CNN(
+            input_channels=input_channels,
+            input_res=input_res,
+            conv_dropout=conv_dropout,
+        )
 
         self.lstm = nn.LSTM(
             input_size=self.feature_extractor.features_dim,
