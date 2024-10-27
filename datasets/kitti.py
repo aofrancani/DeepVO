@@ -5,8 +5,8 @@ from PIL import Image
 import torch
 from typing import List, Tuple, Union
 from torchvision import transforms
-
-from utils.data_utils import rotation_to_euler
+from scipy.spatial.transform import Rotation as R
+from utils.data_utils import load_normalization
 
 
 class KITTI(torch.utils.data.Dataset):
@@ -42,6 +42,11 @@ class KITTI(torch.utils.data.Dataset):
         self.read_poses = read_poses
         self.transforms = transforms
         self.sequences = sequences
+
+        # KITTI normalization parameters
+        self.mean_angles, self.std_angles, self.mean_t, self.std_t = load_normalization(
+            stats_file="datasets/dataset_stats.json", dataset_name="kitti"
+        )
 
         # Build data dictionary with frames and ground truths for each sequence
         self.data_dict = self._build_data_dict(
@@ -221,16 +226,20 @@ class KITTI(torch.utils.data.Dataset):
             pose_wrt_prev = np.dot(np.linalg.inv(pose_prev), pose_curr)
 
             # Rotation and translation
-            R = pose_wrt_prev[:3, :3]
             t = pose_wrt_prev[:3, 3]
+            rot = pose_wrt_prev[:3, :3]
+            rot = R.from_matrix(rot)
 
             # Rotation to Euler angles
-            angles = rotation_to_euler(R, seq="zyx")
+            angles = rot.as_euler("xyz")
+
+            # Pose normalization
+            angles, t = self._normalize_pose(angles, t)
 
             # Concatenate rotation and translation
             y.append(np.concatenate([angles, t]))
 
-        return np.asarray(y).flatten()
+        return np.asarray(y)
 
     def _normalize_pose(
         self, angles: List[float], t: List[float]

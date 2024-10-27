@@ -130,7 +130,8 @@ def update_state(
         optimizer = load_optimizer_state(optimizer, checkpoint)
 
         # Update scheduler state
-        scheduler = load_scheduler_state(scheduler, checkpoint)
+        if scheduler:
+            scheduler = load_scheduler_state(scheduler, checkpoint)
 
         # Update training parameters
         training_params = update_training_params(training_params, checkpoint)

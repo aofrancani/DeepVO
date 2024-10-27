@@ -20,21 +20,19 @@
 
     "optimizer": {
         "method": "SGD",
-        "lr": 1e-4,
+        "lr": 1e-3,
         "momentum": 0.9,
         "weight_decay": 1e-4
     },
 
     "scheduler": {
-        "method": null,
-        "gamma": 0.5,
-        "milestones": [10, 30, 40]
+        "method": "CosineAnnealingLR"
     },
     
     "training": {
         "epoch": 50,
         "loss": "w_mse",
-        "alpha": 1.5
+        "alpha": 1.0
     },
 
     "checkpoint": {
