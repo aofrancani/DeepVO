@@ -35,7 +35,8 @@ This repository contains an unofficial PyTorch implementation of **DeepVO: Towar
 ---
 
 ## 1. Dataset
-To use this implementation, download the KITTI dataset directly from the [KITTI website](http://www.cvlibs.net/datasets/kitti/). Ensure the dataset is organized as specified for ease of data loading.
+Download the KITTI dataset directly from the [KITTI website](https://www.cvlibs.net/datasets/kitti/eval_odometry.php). 
+Ensure the dataset is organized as specified for ease of data loading.
 
 ## 2. Pre-trained Models
 Currently, pre-trained models are not available. A link will be provided for downloading trained checkpoints from Google Drive in the future.
