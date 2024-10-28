@@ -97,7 +97,7 @@ def post_processing(pred_poses, window_size):
     return np.asarray(poses)
 
 
-def recover_trajectory_and_poses(poses):
+def recover_trajectory_and_poses(poses, normalize_gt):
 
     predicted_poses = []
     # recover predicted trajectory
@@ -110,11 +110,12 @@ def recover_trajectory_and_poses(poses):
         t = poses[i, 3:]
 
         # Undo normalization
-        mean_angles, std_angles, mean_t, std_t = load_normalization(
-            stats_file="datasets/dataset_stats.json", dataset_name="kitti"
-        )
-        # [x, y, z] = np.multiply(angles, std_angles) + mean_angles
-        # t = np.multiply(t, std_t) + mean_t
+        if normalize_gt:
+            mean_angles, std_angles, mean_t, std_t = load_normalization(
+                stats_file="datasets/dataset_stats.json", dataset_name="kitti"
+            )
+            [x, y, z] = np.multiply(angles, std_angles) + mean_angles
+            t = np.multiply(t, std_t) + mean_t
 
         # Euler angles to rotation matrix
         rot = R.from_euler("xyz", angles)
@@ -165,7 +166,9 @@ if __name__ == "__main__":
 
         # post processing and recover trajectory
         poses = post_processing(pred_poses, data_params["window_size"])
-        pred_poses, pred_trajectory = recover_trajectory_and_poses(poses)
+        pred_poses, pred_trajectory = recover_trajectory_and_poses(
+            poses, normalize_gt=data_params.get("normalize_gt", False)
+        )
 
         save_trajectory(
             pred_poses,

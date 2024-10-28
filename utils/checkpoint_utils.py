@@ -34,7 +34,7 @@ def load_checkpoint(checkpoint_fpath: Union[str, Path, None]) -> Optional[Dict]:
         checkpoint_fpath += ".pth"
 
     # Load checkpoint and the model's state dict
-    checkpoint = torch.load(checkpoint_fpath)
+    checkpoint = torch.load(checkpoint_fpath, weights_only=True)
 
     return checkpoint
 
