@@ -69,12 +69,12 @@ def define_initialization_checkpoint(
 
     # Case 1: No initialization found: Restart training from last checkpoint if it exists
     if checkpoint_last_fpath.is_file():
-        print(f"-- Restarting training from last checkpoint found")
+        print(f"--- Restarting training from last checkpoint found")
         checkpoint_fpath = checkpoint_last_fpath
 
     # Case 2: No last checkpoint found and initialization fpath is given and exists
     elif model_init_fpath and Path(model_init_fpath).is_file():
-        print(f"-- Initializing model with {model_init_fpath}")
+        print(f"--- Initializing model with {model_init_fpath}")
         checkpoint_fpath = Path(model_init_fpath)
 
     # Case 3: No initialization (from scratch)

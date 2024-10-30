@@ -5,8 +5,7 @@ from PIL import Image
 import torch
 from typing import List, Tuple, Union
 from torchvision import transforms
-from scipy.spatial.transform import Rotation as R
-from utils.data_utils import load_normalization
+from utils.data_utils import load_normalization, rotation_to_euler
 
 
 class KITTI(torch.utils.data.Dataset):
@@ -231,10 +230,9 @@ class KITTI(torch.utils.data.Dataset):
             # Rotation and translation
             t = pose_wrt_prev[:3, 3]
             rot = pose_wrt_prev[:3, :3]
-            rot = R.from_matrix(rot)
 
             # Rotation to Euler angles
-            angles = rot.as_euler("xyz")
+            angles = rotation_to_euler(rot)
 
             # Pose normalization
             if normalize_gt:

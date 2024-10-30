@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from datasets.kitti import KITTI
-from utils.data_utils import load_normalization
+from utils.data_utils import load_normalization, euler_to_rotation
 from utils.config_utils import load_config
-from scipy.spatial.transform import Rotation as R
 
 
 def save_trajectory(poses, sequence, save_dir):
@@ -49,12 +48,11 @@ def recover_trajectory_and_poses(poses, normalize_gt):
             mean_angles, std_angles, mean_t, std_t = load_normalization(
                 stats_file="datasets/dataset_stats.json", dataset_name="kitti"
             )
-            [x, y, z] = np.multiply(angles, std_angles) + mean_angles
+            angles = np.multiply(angles, std_angles) + mean_angles
             t = np.multiply(t, std_t) + mean_t
 
         # Euler angles to rotation matrix
-        rot = R.from_euler("xyz", angles)
-        rot = rot.as_matrix()
+        rot = euler_to_rotation(angles)
 
         T_r = np.concatenate(
             (
@@ -104,7 +102,7 @@ if __name__ == "__main__":
 
         # post processing and recover trajectory
         poses = pred_poses.squeeze(1)
-        poses = np.asarray(pred_poses)
+        poses = np.asarray(poses)
         pred_poses, pred_trajectory = recover_trajectory_and_poses(
             poses, normalize_gt=data_params.get("normalize_gt", False)
         )
