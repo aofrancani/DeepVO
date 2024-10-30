@@ -169,13 +169,20 @@ def count_parameters(model: nn.Module) -> int:
 
 
 if __name__ == "__main__":
+    from pprint import pprint as pp
+    from models.build_model import load_pretrained_flownet
+
     batch_size = 8
     input_channels = 6
     input_res = (384, 1280)
 
     # Build the model
     model = DeepVO(
-        input_channels=input_channels, hidden_size=1000, lstm_layers=2, output_size=6
+        input_channels=input_channels,
+        input_res=input_res,
+        hidden_size=1000,
+        lstm_layers=2,
+        output_size=6,
     )
     print(f"# Parameters: {count_parameters(model):,}")
 
@@ -191,3 +198,6 @@ if __name__ == "__main__":
     with torch.no_grad():
         y = model(x, hidden_state)
     print(f"y.shape: {y.shape}")  # (batch_size, 1, output_size)
+
+    # load pretrained FlowNet
+    model = load_pretrained_flownet(model)

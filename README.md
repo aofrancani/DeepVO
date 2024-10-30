@@ -30,7 +30,7 @@ This repository contains an unofficial PyTorch implementation of **DeepVO: Towar
 
 - **Dropout**
     - The authors mention "*Dropout and early stopping techniques are introduced to prevent the models from overfitting*", but they provide no further details.
-    - We tested with `lstm_dropout = 0.2` and `conv_dropout = 0.1`.
+    - We tested with `lstm_dropout = 0.2` and `conv_dropout = 0.2`.
 
 ---
 
@@ -39,7 +39,12 @@ Download the KITTI dataset directly from the [KITTI website](https://www.cvlibs.
 Ensure the dataset is organized as specified for ease of data loading.
 
 ## 2. Pre-trained Models
-Currently, pre-trained models are not available. A link will be provided for downloading trained checkpoints from Google Drive in the future.
+
+**Pre-trained FlowNet**: Download the pre-trained FlowNet from [ClementPinard/FlowNetPytorch](https://github.com/ClementPinard/FlowNetPytorch).
+- More specifically, download [flownets_from_caffe.pth](https://drive.google.com/drive/folders/16eo3p9dO_vmssxRoZCmWkTpNjKRzJzn5).
+- Save in `checkpoints/flownet/flownets_from_caffe.pth` to use the default config, otherwise change the key `flownet_checkpoint` in the config file (`configs/exp.json`).
+
+Currently, pre-trained DeepVO models are not available. A link will be provided for downloading trained checkpoints from Google Drive in the future.
 
 ## 3. Setup Environment
 

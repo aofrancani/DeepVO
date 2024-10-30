@@ -205,12 +205,15 @@ class KITTI(torch.utils.data.Dataset):
 
         return windowed_dict
 
-    def _compute_relative_poses(self, poses: list, normalize_gt: bool) -> np.ndarray:
+    def _compute_relative_poses(
+        self, poses: list, normalize_gt: bool = False
+    ) -> np.ndarray:
         """
         Compute relative poses between consecutive frames in a window.
 
         Args:
             poses (list): List of poses in the window
+            normalize_gt (bool): Normalize ground truth pose if True.
 
         Returns:
             np.ndarray: Flattened array of relative poses

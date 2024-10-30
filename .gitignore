@@ -28,3 +28,4 @@ data/
 .gitattributes
 checkpoints/
 .vscode
+models/pretrained/

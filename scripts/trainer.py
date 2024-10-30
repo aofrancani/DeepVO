@@ -142,7 +142,7 @@ class Trainer:
                 self.checkpoint_params.get("checkpoint_dpath", "checkpoints/test"),
                 epoch,
                 save_best,
-                save_interval=10,
+                save_interval=self.training_params.get("save_interval", 10),
             )
             save_best = False
 
