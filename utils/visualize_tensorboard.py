@@ -2,7 +2,8 @@ import argparse
 from pathlib import Path
 import subprocess
 import sys
-
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
 
 
@@ -39,6 +40,37 @@ def extract_losses_from_tensorboard(log_dir: str):
     return epochs, train_loss, val_loss
 
 
+def plot_training_loss(
+    train_loss: list, val_loss: list, epochs: list, save_dpath: str = "loss"
+) -> None:
+    """
+    Plots training and validation loss over epochs.
+
+    Args:
+        train_loss (List[float]): List of training loss values.
+        val_loss (List[float]): List of validation loss values.
+        epochs (List[int]): List of epoch indices corresponding to loss values.
+        save_dpath (str): File path (without extension) to save the plot (default is "loss").
+    """
+    # Set LaTeX-like formatting
+    rcParams.update({"font.family": "serif", "font.size": 16})
+    # Create figure and plot data
+    plt.figure(figsize=(8, 6))
+    plt.plot(epochs, train_loss, color="k", linewidth=2, label="Training")
+    plt.plot(epochs, val_loss, color="r", linewidth=2, label="Validation")
+    plt.grid()
+    plt.legend(fontsize=20, loc="upper right")
+    plt.xlabel("Epoch", fontsize=20)
+    plt.ylabel("Loss", fontsize=20)
+    plt.tight_layout()
+
+    # Save plot
+    plt.savefig(
+        f"{save_dpath}/learning_curve.png", bbox_inches="tight", pad_inches=0, dpi=100
+    )
+    plt.close()
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Launch TensorBoard to visualize logs."
@@ -47,6 +79,10 @@ if __name__ == "__main__":
         "--log_dir", type=str, help="Directory with TensorBoard log files."
     )
     args = parser.parse_args()
+
+    # make plot
+    epochs, train_loss, val_loss = extract_losses_from_tensorboard(log_dir=args.log_dir)
+    plot_training_loss(train_loss, val_loss, epochs, args.log_dir)
 
     # Launch TensorBoard
     launch_tensorboard(log_dir=args.log_dir)

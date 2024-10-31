@@ -2,7 +2,6 @@
 
 This repository contains an unofficial PyTorch implementation of **DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks**. This code is tailored to train and evaluate the DeepVO model for visual odometry tasks, with configurations and scripts for easy experimentation.
 
-
 <figure>
    <img src="deepvo_model.png" alt="DeepVO Model">
    <figcaption>[Source]: DeepVO model architecture. Extracted from the original DeepVO paper.</figcaption>
@@ -40,11 +39,15 @@ Ensure the dataset is organized as specified for ease of data loading.
 
 ## 2. Pre-trained Models
 
-**Pre-trained FlowNet**: Download the pre-trained FlowNet from [ClementPinard/FlowNetPytorch](https://github.com/ClementPinard/FlowNetPytorch).
+**Pre-trained FlowNet**: 
+
+Download the pre-trained FlowNet from [ClementPinard/FlowNetPytorch](https://github.com/ClementPinard/FlowNetPytorch).
 - More specifically, download [flownets_from_caffe.pth](https://drive.google.com/drive/folders/16eo3p9dO_vmssxRoZCmWkTpNjKRzJzn5).
 - Save in `checkpoints/flownet/flownets_from_caffe.pth` to use the default config, otherwise change the key `flownet_checkpoint` in the config file (`configs/exp.json`).
 
-Currently, pre-trained DeepVO models are not available. A link will be provided for downloading trained checkpoints from Google Drive in the future.
+**Trained DeepVO**: 
+
+You can download my trained DeepVO model here [DeepVO/checkpoints](https://drive.google.com/drive/folders/1IPyVflyvUULq1Cwy-M4Qe25q09k7qROD?usp=sharing)
 
 ## 3. Setup Environment
 
@@ -114,6 +117,52 @@ python -m utils.visualize_tensorboard --log_dir checkpoints/exp1
 ```
 
 ## 5. Results
+
+### Learning Curve:
+
+<div style="flex: 1; margin: 3px; text-align: left;">
+    <img src="results/learning_curve.png" width="55%"/>
+</div>
+
+### Inferences in the Test Sequences (checkpoint@epoch190):
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <!-- First Row: 4 Images -->
+    <div style="flex: 1; margin: 3px; text-align: center;">
+        <img src="results/pred_traj_01.png" width="100%"/>
+        <p>Sequence 01</p>
+    </div>
+    <div style="flex: 1; margin: 3px; text-align: center;">
+        <img src="results/pred_traj_03.png" width="100%" />
+        <p>Sequence 03</p>
+    </div>
+    <div style="flex: 1; margin: 3px; text-align: center;">
+        <img src="results/pred_traj_04.png" width="100%" />
+        <p>Sequence 04</p>
+    </div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 10px;">
+    <!-- Second Row: 3 Images -->
+    <div style="flex: 1; margin: 3px; text-align: center;">
+        <img src="results/pred_traj_05.png" width="100%"/>
+        <p>Sequence 05</p>
+    </div>
+    <div style="flex: 1; margin: 5px; text-align: center;">
+        <img src="results/pred_traj_06.png" width="100%"/>
+        <p>Sequence 06</p>
+    </div>
+    <div style="flex: 1; margin: 5px; text-align: center;">
+        <img src="results/pred_traj_07.png" width="100%"/>
+        <p>Sequence 07</p>
+    </div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 10px;">
+    <div style="flex: 1; margin: 5px; text-align: left;">
+        <img src="results/pred_traj_10.png" width="33%" alt="Image 7"/>
+        <p>Sequence 10</p>
+    </div>
+</div>
 
 ## 6. Reference
 
