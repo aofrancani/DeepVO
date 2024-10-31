@@ -19,10 +19,6 @@ This repository contains an unofficial PyTorch implementation of **DeepVO: Towar
 - **Optimiser**
     - The authors mention "*Adagrad optimiser is employed to train the network for up to 200 epochs with learning rate 0.001*"
 
-- **Pre-trained FlowNet**
-    - The authors mention "*the CNN is based on a pre-trained FlowNet model*" 
-    - This is not yet implemented in this repository.
-
 - **Normalization**
     - The authors do not specify normalization of the ground truth poses. Since they use a weighted MSE loss with a scale factor of $\kappa=100$ (high value), we assume they do not apply standard normalization.
     - Seeing the y-axis of the training/validation losses in Fig. 4 would provide more clarity.
