@@ -47,11 +47,11 @@ You can download my trained DeepVO model here [DeepVO/checkpoints](https://drive
 
 ## 3. Setup Environment
 
-Create a virtual environment to install dependencies:
+Create a virtual environment to install dependencies (tested on Python 3.12.7):
 
 ```bash
 # Create a new conda environment
-conda create -n deepvo python=3.8
+conda create -n deepvo python=3.12.7
 
 # Activate the environment
 conda activate deepvo
