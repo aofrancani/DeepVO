@@ -117,48 +117,18 @@ python -m utils.visualize_tensorboard --log_dir checkpoints/exp1
 ### Learning Curve:
 
 <div style="flex: 1; margin: 3px; text-align: left;">
-    <img src="results/learning_curve.png" width="55%"/>
+    <img src="results/learning_curve.png" width="45%"/>
 </div>
 
 ### Inferences in the Test Sequences (checkpoint@epoch190):
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-    <!-- First Row: 4 Images -->
-    <div style="flex: 1; margin: 3px; text-align: center;">
-        <img src="results/pred_traj_01.png" width="100%"/>
-        <p>Sequence 01</p>
-    </div>
-    <div style="flex: 1; margin: 3px; text-align: center;">
-        <img src="results/pred_traj_03.png" width="100%" />
-        <p>Sequence 03</p>
-    </div>
-    <div style="flex: 1; margin: 3px; text-align: center;">
-        <img src="results/pred_traj_04.png" width="100%" />
-        <p>Sequence 04</p>
-    </div>
-</div>
+| **Sequence 01**                     | **Sequence 03**                     | **Sequence 04**                     | **Sequence 05**                     |
+|-------------------------------------|-------------------------------------|-------------------------------------|-------------------------------------|
+| ![Plot 1](results/pred_traj_01.png) | ![Plot 2](results/pred_traj_03.png) | ![Plot 3](results/pred_traj_04.png) | ![Plot 4](results/pred_traj_05.png) |
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 10px;">
-    <!-- Second Row: 3 Images -->
-    <div style="flex: 1; margin: 3px; text-align: center;">
-        <img src="results/pred_traj_05.png" width="100%"/>
-        <p>Sequence 05</p>
-    </div>
-    <div style="flex: 1; margin: 5px; text-align: center;">
-        <img src="results/pred_traj_06.png" width="100%"/>
-        <p>Sequence 06</p>
-    </div>
-    <div style="flex: 1; margin: 5px; text-align: center;">
-        <img src="results/pred_traj_07.png" width="100%"/>
-        <p>Sequence 07</p>
-    </div>
-</div>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 10px;">
-    <div style="flex: 1; margin: 5px; text-align: left;">
-        <img src="results/pred_traj_10.png" width="33%" alt="Image 7"/>
-        <p>Sequence 10</p>
-    </div>
-</div>
+| **Sequence 06**                     | **Sequence 07**                     | **Sequence 10**                    |
+|-------------------------------------|-------------------------------------|-------------------------------------|
+| ![Plot 5](results/pred_traj_06.png) | ![Plot 6](results/pred_traj_07.png) | ![Plot 7](results/pred_traj_10.png) |
 
 ## 6. Reference
 
